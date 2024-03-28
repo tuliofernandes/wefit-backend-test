@@ -1,4 +1,4 @@
-import { FullName } from "./City";
+import { City } from "./City";
 
 describe("[VO] FullName", () => {
   const invalidValues = ["", "a", "a".repeat(51), "$$Conchas", ""];
@@ -24,20 +24,20 @@ describe("[VO] FullName", () => {
   describe("validation", () => {
     invalidValues.forEach((value) => {
       it(`Should throw on invalid value "${value}"`, () => {
-        expect(() => new FullName(value)).toThrow("Invalid city name");
+        expect(() => new City(value)).toThrow("Invalid city name");
       });
     });
 
     validValues.forEach((value) => {
       it(`Should not throw on valid value "${value}"`, () => {
-        expect(() => new FullName(value)).not.toThrow();
+        expect(() => new City(value)).not.toThrow();
       });
     });
   });
 
   describe("methods", () => {
     it("toString should return the value", () => {
-      expect(new FullName("John Doe").toString()).toBe("John Doe");
+      expect(new City("John Doe").toString()).toBe("John Doe");
     });
   });
 });

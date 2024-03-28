@@ -1,6 +1,6 @@
-export class City {
+export class Neighborhood {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid city name");
+    if (!this.isValid(value)) throw new Error("Invalid neighborhood name");
   }
 
   private isValid(value: string): boolean {
