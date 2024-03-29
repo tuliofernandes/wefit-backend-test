@@ -10,6 +10,7 @@ import {
   Neighborhood,
   Phone,
   Street,
+  Type,
   Uf,
 } from "../ValueObjects/Profile";
 import { Profile } from "./Profile";
@@ -34,7 +35,7 @@ describe("[Entity]: Profile", () => {
     uf: "SP",
   };
   const profileFixture = new Profile(
-    ProfileType.PJ,
+    new Type(ProfileType.PJ),
     new Cpf(profileFixtureJson.cpf),
     new Cnpj(profileFixtureJson.cnpj),
     new FullName(profileFixtureJson.name),
@@ -55,7 +56,7 @@ describe("[Entity]: Profile", () => {
       expect(
         () =>
           new Profile(
-            ProfileType.PJ,
+            new Type(ProfileType.PJ),
             new Cpf(profileFixtureJson.cpf),
             null,
             new FullName(profileFixtureJson.name),

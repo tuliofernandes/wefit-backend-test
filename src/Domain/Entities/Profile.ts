@@ -12,6 +12,7 @@ import {
   Neighborhood,
   Phone,
   Street,
+  Type,
   Uf,
 } from "@/Domain/ValueObjects/Profile";
 
@@ -34,7 +35,7 @@ export type ProfileSchema = {
 
 export class Profile {
   constructor(
-    private readonly type: ProfileType,
+    private readonly type: Type,
     private readonly cpf: Cpf,
     private readonly cnpj: Cnpj | null,
     private readonly name: FullName,
@@ -49,7 +50,7 @@ export class Profile {
     private readonly city: City,
     private readonly uf: Uf
   ) {
-    if (this.type === ProfileType.PJ && !this.cnpj)
+    if (this.type.toString() === ProfileType.PJ && !this.cnpj)
       throw new DomainException("CNPJ is required for PJ profiles");
   }
 
