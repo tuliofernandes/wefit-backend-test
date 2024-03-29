@@ -1,6 +1,9 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class AddressNumber {
   constructor(private readonly value: string | number) {
-    if (!this.isValid(value)) throw new Error("Invalid address number");
+    if (!this.isValid(value))
+      throw new DomainException("Invalid address number");
   }
 
   private isValid(value: string | number): boolean {

@@ -1,6 +1,8 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class Email {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid email");
+    if (!this.isValid(value)) throw new DomainException("Invalid email");
   }
 
   private isValid(value: string): boolean {

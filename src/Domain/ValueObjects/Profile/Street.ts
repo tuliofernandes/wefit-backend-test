@@ -1,6 +1,8 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class Street {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid street name");
+    if (!this.isValid(value)) throw new DomainException("Invalid street name");
   }
 
   private isValid(value: string): boolean {

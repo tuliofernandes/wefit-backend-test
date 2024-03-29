@@ -1,6 +1,8 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class Cep {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid CEP");
+    if (!this.isValid(value)) throw new DomainException("Invalid CEP");
   }
 
   private isValid(value: string): boolean {

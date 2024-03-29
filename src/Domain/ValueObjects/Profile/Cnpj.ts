@@ -1,6 +1,8 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class Cnpj {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid CNPJ");
+    if (!this.isValid(value)) throw new DomainException("Invalid CNPJ");
   }
 
   private isValid(value: string): boolean {

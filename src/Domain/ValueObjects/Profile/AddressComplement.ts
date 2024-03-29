@@ -1,6 +1,9 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class AddressComplement {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid address complement");
+    if (!this.isValid(value))
+      throw new DomainException("Invalid address complement");
   }
 
   private isValid(value: string): boolean {

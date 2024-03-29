@@ -1,6 +1,8 @@
+import { DomainException } from "@/Domain/Exceptions/DomainException";
+
 export class FullName {
   constructor(private readonly value: string) {
-    if (!this.isValid(value)) throw new Error("Invalid full name");
+    if (!this.isValid(value)) throw new DomainException("Invalid full name");
   }
 
   private isValid(value: string): boolean {
