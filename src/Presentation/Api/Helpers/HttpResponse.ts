@@ -14,6 +14,7 @@ export class HttpResponse {
       new InternalServerError(this.createErrorMessage(errorMessage))
     );
   static ok = (data: any): HttpResponse => new HttpResponse(200, data);
+  static created = (data?: any): HttpResponse => new HttpResponse(201, data);
 
   private static createErrorMessage(errorMessage: unknown): Error {
     return errorMessage instanceof Error
