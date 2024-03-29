@@ -1,13 +1,10 @@
 import express from "express";
 
+import { Server } from "@/Presentation/Api/server";
+
+import { EnvAdapter } from "@/Infra/Configs/env";
+
 const app = express();
+const port = EnvAdapter.http.listenPort;
 
-const port = process.env.PORT || 4568;
-
-app.get("/ping", (req, res) => {
-  return res.send("pong");
-});
-
-app.listen(port, () => {
-  console.log(`Escutando na porta ${port}`);
-});
+new Server().startup().catch(console.error);
