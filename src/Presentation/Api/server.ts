@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { EnvAdapter } from "@/Infra/Configs/env";
 import { ExpressHttpAdapter } from "@/Presentation/Api/Adapters/ExpressHttpAdapter";
 

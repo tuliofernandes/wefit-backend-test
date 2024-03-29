@@ -6,7 +6,7 @@ import { PostCreateProfileController } from "@/Presentation/Api/Controllers/Post
 export class ProfileRoutes {
   static register(router: Router): void {
     router.post(
-      "/profile",
+      "/api/profile",
       HandleRequestMiddleware(new PostCreateProfileController())
     );
   }

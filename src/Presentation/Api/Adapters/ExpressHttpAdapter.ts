@@ -7,6 +7,7 @@ import hpp from "hpp";
 import { ExpressRouter } from "@/Presentation/Api/router";
 
 import { HttpServer } from "@/Infra/Protocols";
+import ErrorHandlerMiddleware from "../Middlewares/ErrorHandlerMiddleware";
 
 export class ExpressHttpAdapter implements HttpServer {
   private readonly app: Express = express();
@@ -32,8 +33,8 @@ export class ExpressHttpAdapter implements HttpServer {
   private setupRouter(): void {
     this.app.use(this.router);
 
-    // const errorHandler = new ErrorHandlerMiddleware();
-    // this.app.use(errorHandler.handler);
+    const errorHandler = new ErrorHandlerMiddleware();
+    this.app.use(errorHandler.handler);
   }
 
   private setupSecurity(): void {

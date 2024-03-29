@@ -10,3 +10,4 @@ export * from "./Neighborhood";
 export * from "./Phone";
 export * from "./Street";
 export * from "./Uf";
+export * from "./Type";
