@@ -1,5 +1,5 @@
 import { Server } from "http";
 
-export interface HttpServer {
+export interface IHttpServer {
   startup: (port: number) => Promise<Server>;
 }

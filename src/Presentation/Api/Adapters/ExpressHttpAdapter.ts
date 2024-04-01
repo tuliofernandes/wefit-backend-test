@@ -4,12 +4,12 @@ import cors from "cors";
 import helmet from "helmet";
 import hpp from "hpp";
 
+import { IHttpServer } from "@/Infra/Protocols";
+
 import { ExpressRouter } from "@/Presentation/Api/router";
+import ErrorHandlerMiddleware from "@/Presentation/Api/Middlewares/ErrorHandlerMiddleware";
 
-import { HttpServer } from "@/Infra/Protocols";
-import ErrorHandlerMiddleware from "../Middlewares/ErrorHandlerMiddleware";
-
-export class ExpressHttpAdapter implements HttpServer {
+export class ExpressHttpAdapter implements IHttpServer {
   private readonly app: Express = express();
   private router: express.Router;
   private serverConnection: Server | undefined;
@@ -42,10 +42,6 @@ export class ExpressHttpAdapter implements HttpServer {
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(hpp());
-    this.app.use(
-      express.json({
-        limit: "10kb",
-      })
-    );
+    this.app.use(express.json({ limit: "10kb" }));
   }
 }

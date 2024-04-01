@@ -1,4 +1,4 @@
-import { Profile } from "@/Domain/Entities/Profile";
+import { Profile } from "@/Domain/Entities";
 import {
   AddressComplement,
   AddressNumber,
@@ -21,12 +21,12 @@ import { CreateProfileRequest } from "@/Presentation/@types/Api/Controllers/Prof
 
 export class PostCreateProfileController implements IController {
   async handle(request: any): Promise<HttpResponse> {
-    const profile = this.profileEntityFactory(request as any);
+    const profile = this.makeProfileEntity(request); // Factory pattern
 
     return HttpResponse.created();
   }
 
-  private profileEntityFactory(request: CreateProfileRequest): Profile {
+  private makeProfileEntity(request: CreateProfileRequest): Profile {
     return new Profile(
       new Type(request.type),
       new Cpf(request.cpf),

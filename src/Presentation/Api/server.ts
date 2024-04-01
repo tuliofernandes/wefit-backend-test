@@ -1,8 +1,8 @@
-import { EnvAdapter } from "@/Infra/Configs/env";
-import { ExpressHttpAdapter } from "@/Presentation/Api/Adapters/ExpressHttpAdapter";
-
 import { Server as HttpServer } from "http";
 import gracefulShutdown from "http-graceful-shutdown";
+
+import { EnvAdapter } from "@/Infra/Configs/env";
+import { ExpressHttpAdapter } from "@/Presentation/Api/Adapters/ExpressHttpAdapter";
 
 export class Server {
   private httpServer: HttpServer | undefined;
