@@ -11,3 +11,4 @@ export * from "./Phone";
 export * from "./Street";
 export * from "./Uf";
 export * from "./Type";
+export * from "./ProfileId";
