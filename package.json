@@ -11,7 +11,8 @@
     "dev": "nodemon -L --config nodemon.json",
     "start": "node dist/index.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias",
-    "tsoa": "tsoa spec --project tsoa.json"
+    "tsoa": "tsoa spec --project tsoa.json",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
