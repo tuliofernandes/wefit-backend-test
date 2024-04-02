@@ -46,4 +46,17 @@ describe("[Usecase] CreateProfileUsecase", () => {
       new DomainException("Profile with the same CNPJ already exists")
     );
   });
+
+  it("Should return the created profile if it does not exist", async () => {
+    jest.spyOn(profileRepository, "findByEmail").mockResolvedValueOnce(null);
+    jest.spyOn(profileRepository, "findByCpf").mockResolvedValueOnce(null);
+    jest.spyOn(profileRepository, "findByCnpj").mockResolvedValueOnce(null);
+    jest
+      .spyOn(profileRepository, "create")
+      .mockResolvedValueOnce(profileFixtureEntity);
+    const sut = new CreateProfileUsecase(profileRepository);
+    const created = await sut.execute(profileFixtureEntity);
+
+    expect(created).toEqual(profileFixtureEntity);
+  });
 });
