@@ -59,6 +59,10 @@ export class Profile {
       throw new DomainException("CNPJ is not required for PF profiles");
   }
 
+  public getType(): Type {
+    return this.type;
+  }
+
   public getId(): ProfileId {
     return this.id;
   }

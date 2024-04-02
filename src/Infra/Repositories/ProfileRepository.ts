@@ -1,4 +1,4 @@
-import { Email, ProfileId } from "@/Domain/ValueObjects/Profile";
+import { ProfileId, Cnpj, Cpf, Email } from "@/Domain/ValueObjects/Profile";
 import { Profile } from "@/Domain/Entities";
 import { IProfileRepository } from "@/Domain/Protocols";
 
@@ -23,6 +23,30 @@ export class ProfileRepository implements IProfileRepository {
     try {
       const found = await prismaClient.profile.findUnique({
         where: { email: email.toString() },
+      });
+      if (!found) return null;
+      return ProfileAdapter.toEntity(found);
+    } catch (error) {
+      throw new InfraException("Error when checking profile");
+    }
+  }
+
+  async findByCpf(cpf: Cpf): Promise<Profile | null> {
+    try {
+      const found = await prismaClient.profile.findUnique({
+        where: { cpf: cpf.toString() },
+      });
+      if (!found) return null;
+      return ProfileAdapter.toEntity(found);
+    } catch (error) {
+      throw new InfraException("Error when checking profile");
+    }
+  }
+
+  async findByCnpj(cnpj: Cnpj): Promise<Profile | null> {
+    try {
+      const found = await prismaClient.profile.findUnique({
+        where: { cnpj: cnpj.toString() },
       });
       if (!found) return null;
       return ProfileAdapter.toEntity(found);
