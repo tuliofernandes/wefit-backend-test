@@ -8,24 +8,21 @@ export default class ErrorHandlerMiddleware {
     _next: NextFunction
   ): void {
     try {
+      let status = 500;
+      let body = "Internal server error";
+
       if (errorInfo.name.includes("DomainException")) {
-        response.status(400).send({
-          status: 400,
-          body: errorInfo.message,
-        });
-        return;
+        status = 400;
+        body = errorInfo.message;
       }
       if (errorInfo.message.includes("exists")) {
-        response.status(409).send({
-          status: 409,
-          body: errorInfo.message,
-        });
-        return;
+        status = 409;
+        body = errorInfo.message;
       }
 
-      response.status(500).send({
-        status: 500,
-        body: "Internal server error",
+      response.status(status).send({
+        status,
+        body,
       });
     } catch (error) {
       console.info(error); // Log the error internally for further analysis
