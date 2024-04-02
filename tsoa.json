@@ -1,0 +1,23 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/*Controller.ts"],
+  "spec": {
+    "outputDirectory": "src/Presentation/Api",
+    "specVersion": 3,
+    "host": "localhost:4568",
+    "basePath": "",
+    "name": "ProfileService",
+    "version": "1.0.0",
+    "contact": {
+      "name": "WeFit",
+      "email": "https://github.com/tuliofernandes"
+    }
+  },
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  }
+}
