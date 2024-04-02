@@ -27,7 +27,7 @@ export class CreateProfileUsecase {
   }
 
   private async checkIfExistsByCnpj(profile: Profile) {
-    if (!this.isProfileTypePj(profile)) return; // Save some processing time and improve the performance
+    if (!this.isProfileTypePj(profile)) return; // Save some processing time
     const found = await this.profileRepository.findByCnpj(profile.getCnpj()!); // The Profile Entity has a nullable Cnpj, but we know it's not null here since the class is already validating it in case of a PJ profile
     if (found)
       throw new DomainException("Profile with the same CNPJ already exists");

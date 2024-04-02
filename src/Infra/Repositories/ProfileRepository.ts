@@ -1,4 +1,4 @@
-import { ProfileId, Cnpj, Cpf, Email } from "@/Domain/ValueObjects/Profile";
+import { Cnpj, Cpf, Email } from "@/Domain/ValueObjects/Profile";
 import { Profile } from "@/Domain/Entities";
 import { IProfileRepository } from "@/Domain/Protocols";
 
