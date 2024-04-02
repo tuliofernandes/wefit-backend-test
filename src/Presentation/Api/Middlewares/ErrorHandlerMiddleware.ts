@@ -14,16 +14,14 @@ export default class ErrorHandlerMiddleware {
       const message = errorInfo.message;
 
       if (name.includes("DomainException")) status = 400;
-
-      console.log(errorInfo); // Print both name and message to the console
+      if (message.includes("exists")) status = 409;
 
       response.status(status).send({
         status,
         body: message,
       });
     } catch (error) {
-      console.log(error);
-
+      console.info(error); // Log the error internally for further analysis
       response.status(500).send({
         error: "Internal server error",
       });

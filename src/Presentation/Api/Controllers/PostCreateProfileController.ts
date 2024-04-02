@@ -1,4 +1,5 @@
 import { Profile } from "@/Domain/Entities";
+import { CreateProfileUsecase } from "@/Domain/Usecases/CreateProfileUsecase";
 import {
   AddressComplement,
   AddressNumber,
@@ -16,17 +17,25 @@ import {
   Uf,
 } from "@/Domain/ValueObjects/Profile";
 
+import { ProfileRepository } from "@/Infra/Repositories/ProfileRepository";
+
 import { IController } from "@/Presentation/Api/Protocols/IController";
 import { HttpResponse } from "@/Presentation/Api/Helpers";
 import { CreateProfileRequest } from "@/Presentation/@types/Api/Controllers/Profile";
 
 export class PostCreateProfileController implements IController {
   async handle(request: any): Promise<HttpResponse> {
-    const profile = this.makeProfileEntity(request); // Factory pattern
-
-    return HttpResponse.created();
+    const profile = this.makeProfileEntity(request);
+    const profileRepository = new ProfileRepository();
+    const createProfileUsecase = new CreateProfileUsecase(profileRepository);
+    const created = await createProfileUsecase.execute(profile);
+    return HttpResponse.created(created.toJson());
   }
 
+  /**
+   * Factory pattern to validate the request data and build the entity.
+   * Invalid data are caught here via their value objects, then intercepted by the error middleware.
+   */
   private makeProfileEntity(request: CreateProfileRequest): Profile {
     return new Profile(
       new ProfileId(9999), // Useless id
