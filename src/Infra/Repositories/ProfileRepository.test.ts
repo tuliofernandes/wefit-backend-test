@@ -84,5 +84,33 @@ describe("[Repository] ProfileRepository", () => {
     });
   });
 
-  // TODO: Complete the tests for findByCpf and findByCnpj
+  describe.only("findByCpf", () => {
+    it("Should throw an error if some error occurs", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockRejectedValueOnce(dbErrorMessage);
+      sut = makeSut();
+      const createPromise = sut.findByCpf(profileFixtureEntity.getCpf());
+
+      await expect(createPromise).rejects.toThrow(
+        new InfraException("Error when checking profile")
+      );
+    });
+
+    it("Should return null if the profile is not found", async () => {
+      jest.spyOn(prisma.profile, "findUnique").mockResolvedValueOnce(null);
+      const found = await sut.findByCpf(profileFixtureEntity.getCpf());
+
+      expect(found).toBeNull();
+    });
+
+    it("Should return the profile if it is found", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockResolvedValueOnce(profileFixtureSchema);
+      const found = await sut.findByCpf(profileFixtureEntity.getCpf());
+
+      expect(found).toEqual(profileFixtureEntity);
+    });
+  });
 });
