@@ -48,4 +48,21 @@ describe("[Controller] PostCreateProfileController", () => {
       body: conflictErrorMessage,
     });
   });
+
+  it("Should return 500 if some internal error occurs", async () => {
+    jest
+      .spyOn(CreateProfileUsecase.prototype, "execute")
+      .mockRejectedValueOnce(new Error("InfraException: Unexpected error"));
+    const response = await request(testServer)
+      .post("/api/profile")
+      .send(profileFixtureSchema)
+      .set("Content-Type", "application/json")
+      .set("Accept", "application/json");
+
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      status: 500,
+      body: "Internal server error",
+    });
+  });
 });
