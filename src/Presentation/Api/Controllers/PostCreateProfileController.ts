@@ -1,4 +1,4 @@
-import { Route, Post, Body, SuccessResponse } from "tsoa";
+import { Route, Post, Body, SuccessResponse, Response } from "tsoa";
 
 import { Profile } from "@/Domain/Entities";
 import { CreateProfileUsecase } from "@/Domain/Usecases/CreateProfileUsecase";
@@ -25,10 +25,18 @@ import { IController } from "@/Presentation/Api/Protocols/IController";
 import { HttpResponse } from "@/Presentation/Api/Helpers";
 import { CreateProfileRequest } from "@/Presentation/@types/Api/Controllers/Profile";
 
-@Route("api/profile")
+@Route("api/profile") // Use of TSOA decorators to generate the Swagger documentation
 export class PostCreateProfileController implements IController {
   @SuccessResponse("201", "Created")
   @Post()
+  @Response<{ statusCode: number; body: string }>("400", "Bad Request", {
+    statusCode: 400,
+    body: "Invalid data",
+  })
+  @Response<{ statusCode: number; body: string }>("409", "Conflict", {
+    statusCode: 409,
+    body: "Profile already exists",
+  })
   async handle(@Body() request: CreateProfileRequest): Promise<HttpResponse> {
     const profile = this.makeProfileEntity(request);
     const profileRepository = new ProfileRepository();

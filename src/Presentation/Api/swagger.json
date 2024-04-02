@@ -78,7 +78,15 @@
 						"type": "string"
 					},
 					"addressNumber": {
-						"type": "string"
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					},
 					"addressComplement": {
 						"type": "string"
@@ -146,6 +154,68 @@
 								}
 							}
 						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"body": {
+											"type": "string"
+										},
+										"statusCode": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"body",
+										"statusCode"
+									],
+									"type": "object"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"statusCode": 400,
+											"body": "Invalid data"
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Conflict",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"body": {
+											"type": "string"
+										},
+										"statusCode": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"body",
+										"statusCode"
+									],
+									"type": "object"
+								},
+								"examples": {
+									"Example 1": {
+										"value": {
+											"statusCode": 409,
+											"body": "Profile already exists"
+										}
+									}
+								}
+							}
+						}
 					}
 				},
 				"security": [],
@@ -165,7 +235,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://localhost:4568/"
+			"url": "https://localhost/api/docs/"
 		}
 	]
 }

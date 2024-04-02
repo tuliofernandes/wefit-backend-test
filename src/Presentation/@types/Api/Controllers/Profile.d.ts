@@ -9,7 +9,7 @@ type ProfileEntity = {
   email: string;
   cep: string;
   street: string;
-  addressNumber: string;
+  addressNumber: string | number;
   addressComplement: string;
   neighborhood: string;
   city: string;

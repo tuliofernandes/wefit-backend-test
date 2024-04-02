@@ -5,7 +5,7 @@
   "spec": {
     "outputDirectory": "src/Presentation/Api",
     "specVersion": 3,
-    "host": "localhost:4568",
+    "host": "localhost/api/docs",
     "basePath": "",
     "name": "ProfileService",
     "version": "1.0.0",
