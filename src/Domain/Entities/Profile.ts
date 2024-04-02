@@ -11,12 +11,14 @@ import {
   FullName,
   Neighborhood,
   Phone,
+  ProfileId,
   Street,
   Type,
   Uf,
 } from "@/Domain/ValueObjects/Profile";
 
 export type ProfileSchema = {
+  id: number;
   type: string;
   cpf: string;
   cnpj?: string;
@@ -35,6 +37,7 @@ export type ProfileSchema = {
 
 export class Profile {
   constructor(
+    private readonly id: ProfileId,
     private readonly type: Type,
     private readonly cpf: Cpf,
     private readonly cnpj: Cnpj | null,
@@ -56,8 +59,25 @@ export class Profile {
       throw new DomainException("CNPJ is not required for PF profiles");
   }
 
+  public getId(): ProfileId {
+    return this.id;
+  }
+
+  public getEmail(): Email {
+    return this.email;
+  }
+
+  public getCpf(): Cpf {
+    return this.cpf;
+  }
+
+  public getCnpj(): Cnpj | null {
+    return this.cnpj;
+  }
+
   public toJson(): ProfileSchema {
     return {
+      id: this.id.toNumber(),
       type: this.type.toString(),
       cpf: this.cpf.toString(),
       cnpj: this.cnpj?.toString(),

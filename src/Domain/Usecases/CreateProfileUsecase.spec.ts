@@ -12,7 +12,6 @@ describe("[Usecase] CreateProfileUsecase", () => {
     jest
       .spyOn(profileRepository, "findByEmail")
       .mockResolvedValueOnce(profileFixtureEntity);
-
     const sut = new CreateProfileUsecase(profileRepository);
     const createPromise = sut.execute(profileFixtureEntity);
 

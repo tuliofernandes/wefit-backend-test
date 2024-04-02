@@ -9,13 +9,14 @@ import {
   FullName,
   Neighborhood,
   Phone,
+  ProfileId,
   Street,
   Type,
   Uf,
-} from "../ValueObjects/Profile";
-import { Profile } from "./Profile";
-import { ProfileType } from "@/Domain/Enums/ProfileType";
+} from "@/Domain/ValueObjects/Profile";
+import { Profile } from "@/Domain/Entities/Profile";
 import { DomainException } from "@/Domain/Exceptions/DomainException";
+import { ProfileType } from "@/Domain/Enums/ProfileType";
 
 import {
   profileFixtureEntity,
@@ -28,7 +29,8 @@ describe("[Entity]: Profile", () => {
       expect(
         () =>
           new Profile(
-            new Type(ProfileType.PJ),
+            new ProfileId(profileFixtureSchema.id),
+            new Type(profileFixtureSchema.type),
             new Cpf(profileFixtureSchema.cpf),
             null,
             new FullName(profileFixtureSchema.name),
@@ -50,6 +52,7 @@ describe("[Entity]: Profile", () => {
       expect(
         () =>
           new Profile(
+            new ProfileId(profileFixtureSchema.id),
             new Type(ProfileType.PF),
             new Cpf(profileFixtureSchema.cpf),
             new Cnpj(profileFixtureSchema.cnpj),

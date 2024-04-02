@@ -10,12 +10,14 @@ import {
   FullName,
   Neighborhood,
   Phone,
+  ProfileId,
   Street,
   Type,
   Uf,
 } from "@/Domain/ValueObjects/Profile";
 
 export const profileFixtureSchema = {
+  id: 77,
   type: "PJ",
   cpf: "123.456.789-00",
   cnpj: "12.345.678/0001-90",
@@ -33,6 +35,7 @@ export const profileFixtureSchema = {
 };
 
 export const profileFixtureEntity = new Profile(
+  new ProfileId(profileFixtureSchema.id),
   new Type(profileFixtureSchema.type),
   new Cpf(profileFixtureSchema.cpf),
   new Cnpj(profileFixtureSchema.cnpj),

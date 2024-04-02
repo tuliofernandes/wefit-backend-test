@@ -12,6 +12,7 @@ import {
   FullName,
   Neighborhood,
   Phone,
+  ProfileId,
   Street,
   Type,
   Uf,
@@ -20,6 +21,7 @@ import {
 export class ProfileAdapter {
   static toEntity(profile: Schema): Entity {
     return new Entity(
+      new ProfileId(profile.id),
       new Type(profile.type),
       new Cpf(profile.cpf),
       profile.cnpj ? new Cnpj(profile.cnpj) : null,

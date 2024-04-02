@@ -10,6 +10,7 @@ import {
   FullName,
   Neighborhood,
   Phone,
+  ProfileId,
   Street,
   Type,
   Uf,
@@ -28,6 +29,7 @@ export class PostCreateProfileController implements IController {
 
   private makeProfileEntity(request: CreateProfileRequest): Profile {
     return new Profile(
+      new ProfileId(9999), // Useless id
       new Type(request.type),
       new Cpf(request.cpf),
       request.cnpj ? new Cnpj(request.cnpj) : null,
