@@ -1,0 +1,171 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Error": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"HttpResponse": {
+				"properties": {
+					"statusCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"anyOf": [
+							{},
+							{
+								"$ref": "#/components/schemas/Error"
+							}
+						]
+					}
+				},
+				"required": [
+					"statusCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_ProfileEntity.Exclude_keyofProfileEntity.id__": {
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"cpf": {
+						"type": "string"
+					},
+					"cnpj": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"cellPhone": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"cep": {
+						"type": "string"
+					},
+					"street": {
+						"type": "string"
+					},
+					"addressNumber": {
+						"type": "string"
+					},
+					"addressComplement": {
+						"type": "string"
+					},
+					"neighborhood": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"uf": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"type",
+					"cpf",
+					"name",
+					"cellPhone",
+					"phone",
+					"email",
+					"cep",
+					"street",
+					"addressNumber",
+					"addressComplement",
+					"neighborhood",
+					"city",
+					"uf"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_ProfileEntity.id_": {
+				"$ref": "#/components/schemas/Pick_ProfileEntity.Exclude_keyofProfileEntity.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"CreateProfileRequest": {
+				"$ref": "#/components/schemas/Omit_ProfileEntity.id_"
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "ProfileService",
+		"version": "1.0.0",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "WeFit",
+			"email": "https://github.com/tuliofernandes"
+		}
+	},
+	"paths": {
+		"/api/profile": {
+			"post": {
+				"operationId": "Handle",
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HttpResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProfileRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "https://localhost:4568/"
+		}
+	]
+}
