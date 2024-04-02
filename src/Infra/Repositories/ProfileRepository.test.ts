@@ -84,7 +84,7 @@ describe("[Repository] ProfileRepository", () => {
     });
   });
 
-  describe.only("findByCpf", () => {
+  describe("findByCpf", () => {
     it("Should throw an error if some error occurs", async () => {
       jest
         .spyOn(prisma.profile, "findUnique")
@@ -109,6 +109,36 @@ describe("[Repository] ProfileRepository", () => {
         .spyOn(prisma.profile, "findUnique")
         .mockResolvedValueOnce(profileFixtureSchema);
       const found = await sut.findByCpf(profileFixtureEntity.getCpf());
+
+      expect(found).toEqual(profileFixtureEntity);
+    });
+  });
+
+  describe("findByCnpj", () => {
+    it("Should throw an error if some error occurs", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockRejectedValueOnce(dbErrorMessage);
+      sut = makeSut();
+      const createPromise = sut.findByCnpj(profileFixtureEntity.getCnpj()!);
+
+      await expect(createPromise).rejects.toThrow(
+        new InfraException("Error when checking profile")
+      );
+    });
+
+    it("Should return null if the profile is not found", async () => {
+      jest.spyOn(prisma.profile, "findUnique").mockResolvedValueOnce(null);
+      const found = await sut.findByCnpj(profileFixtureEntity.getCnpj()!);
+
+      expect(found).toBeNull();
+    });
+
+    it("Should return the profile if it is found", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockResolvedValueOnce(profileFixtureSchema);
+      const found = await sut.findByCnpj(profileFixtureEntity.getCnpj()!);
 
       expect(found).toEqual(profileFixtureEntity);
     });
