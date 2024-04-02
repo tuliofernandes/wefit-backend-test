@@ -73,5 +73,14 @@ describe("[Repository] ProfileRepository", () => {
 
       expect(found).toBeNull();
     });
+
+    it("Should return the profile if it is found", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockResolvedValueOnce(profileFixtureSchema);
+      const found = await sut.findByEmail(new Email("existentemail@gmail.com"));
+
+      expect(found).toEqual(profileFixtureEntity);
+    });
   });
 });
