@@ -9,6 +9,7 @@ import { IHttpServer } from "@/Infra/Protocols";
 import { ExpressRouter } from "@/Presentation/Api/router";
 import ErrorHandlerMiddleware from "@/Presentation/Api/Middlewares/ErrorHandlerMiddleware";
 
+// Abstract the Http Server
 export class ExpressHttpAdapter implements IHttpServer {
   private readonly app: Express = express();
   private router: express.Router;
@@ -17,7 +18,6 @@ export class ExpressHttpAdapter implements IHttpServer {
   async startup(port: number): Promise<Server> {
     const { router } = new ExpressRouter();
     this.router = router;
-
     this.beforeStartup();
     this.serverConnection = this.app.listen(port, () => {
       console.log(`Http server listening on port: ${port}`);
@@ -32,7 +32,6 @@ export class ExpressHttpAdapter implements IHttpServer {
 
   private setupRouter(): void {
     this.app.use(this.router);
-
     const errorHandler = new ErrorHandlerMiddleware();
     this.app.use(errorHandler.handler);
   }

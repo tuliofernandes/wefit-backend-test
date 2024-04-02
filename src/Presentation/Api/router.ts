@@ -7,7 +7,6 @@ export class ExpressRouter {
 
   constructor() {
     this.router = Router();
-
     ProfileRoutes.register(this.router);
   }
 }
