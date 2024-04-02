@@ -10,7 +10,8 @@
     "test:coverage": "npm test -- --coverage --silent",
     "dev": "nodemon -L --config nodemon.json",
     "start": "node dist/index.js",
-    "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias"
+    "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias",
+    "tsoa": "tsoa spec --project tsoa.json"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
@@ -21,6 +22,7 @@
     "hpp": "^0.2.3",
     "http-graceful-shutdown": "^3.1.13",
     "rimraf": "^5.0.5",
+    "swagger-ui-express": "^5.0.0",
     "tsc-alias": "^1.8.8"
   },
   "devDependencies": {
@@ -30,6 +32,7 @@
     "@types/hpp": "^0.2.6",
     "@types/jest": "^29.5.12",
     "@types/supertest": "^6.0.2",
+    "@types/swagger-ui-express": "^4.1.6",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "jest-mock-extended": "^3.0.5",
