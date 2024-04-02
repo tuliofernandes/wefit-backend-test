@@ -1,3 +1,5 @@
+import { Route, Post, Body, SuccessResponse } from "tsoa";
+
 import { Profile } from "@/Domain/Entities";
 import { CreateProfileUsecase } from "@/Domain/Usecases/CreateProfileUsecase";
 import {
@@ -23,8 +25,11 @@ import { IController } from "@/Presentation/Api/Protocols/IController";
 import { HttpResponse } from "@/Presentation/Api/Helpers";
 import { CreateProfileRequest } from "@/Presentation/@types/Api/Controllers/Profile";
 
+@Route("api/profile")
 export class PostCreateProfileController implements IController {
-  async handle(request: any): Promise<HttpResponse> {
+  @SuccessResponse("201", "Created")
+  @Post()
+  async handle(@Body() request: CreateProfileRequest): Promise<HttpResponse> {
     const profile = this.makeProfileEntity(request);
     const profileRepository = new ProfileRepository();
     const createProfileUsecase = new CreateProfileUsecase(profileRepository);
