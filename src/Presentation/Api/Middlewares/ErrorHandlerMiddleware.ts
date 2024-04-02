@@ -8,17 +8,22 @@ export default class ErrorHandlerMiddleware {
     _next: NextFunction
   ): void {
     try {
-      const httpResponse = request.httpResponse;
-      let status = httpResponse?.statusCode || 500;
-      const name = errorInfo.name;
-      const message = errorInfo.message;
+      if (errorInfo.name.includes("DomainException")) {
+        response.status(400).send({
+          status: 400,
+          body: errorInfo.message,
+        });
+      }
+      if (errorInfo.message.includes("exists")) {
+        response.status(409).send({
+          status: 409,
+          body: errorInfo.message,
+        });
+      }
 
-      if (name.includes("DomainException")) status = 400;
-      if (message.includes("exists")) status = 409;
-
-      response.status(status).send({
-        status,
-        body: message,
+      response.status(500).send({
+        status: 500,
+        body: "Internal server error",
       });
     } catch (error) {
       console.info(error); // Log the error internally for further analysis
