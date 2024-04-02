@@ -13,12 +13,14 @@ export default class ErrorHandlerMiddleware {
           status: 400,
           body: errorInfo.message,
         });
+        return;
       }
       if (errorInfo.message.includes("exists")) {
         response.status(409).send({
           status: 409,
           body: errorInfo.message,
         });
+        return;
       }
 
       response.status(500).send({
