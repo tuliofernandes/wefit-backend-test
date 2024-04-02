@@ -10,7 +10,7 @@ export class ProfileRepository implements IProfileRepository {
   async create(profile: Profile): Promise<Profile> {
     try {
       const created = await prismaClient.profile.create({
-        data: profile.toJson(),
+        data: ProfileAdapter.toSchema(profile),
       });
       return ProfileAdapter.toEntity(created);
     } catch (error) {

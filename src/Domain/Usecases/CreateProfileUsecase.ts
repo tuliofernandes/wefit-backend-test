@@ -3,7 +3,7 @@ import { IProfileRepository } from "@/Domain/Protocols";
 import { DomainException } from "@/Domain/Exceptions/DomainException";
 
 export class CreateProfileUsecase {
-  constructor(private readonly profileRepository: IProfileRepository) {}
+  constructor(private readonly profileRepository: IProfileRepository) {} // Abstract the entity repository
 
   async execute(profile: Profile): Promise<Profile> {
     await Promise.all([

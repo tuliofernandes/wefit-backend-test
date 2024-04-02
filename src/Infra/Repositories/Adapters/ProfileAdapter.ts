@@ -39,23 +39,9 @@ export class ProfileAdapter {
     );
   }
 
-  // static toSchema(profile: Entity): Schema {
-  //   return {
-  //     type: profile.
-  //     cpf: profile.cpf.value,
-  //     cnpj: profile.cnpj?.value,
-  //     name: profile.name.value,
-  //     cellPhone: profile.cellPhone.value,
-  //     phone: profile.phone.value,
-  //     email: profile.email.value,
-  //     cep: profile.cep.value,
-  //     street: profile.street.value,
-  //     addressNumber: profile.addressNumber.value,
-  //     addressComplement: profile.addressComplement.value,
-  //     neighborhood: profile.neighborhood.value,
-  //     city: profile.city.value,
-  //     uf: profile.uf.value,
-  //     createdAt:
-  //   };
-  // }
+  static toSchema(profile: Entity): Schema {
+    const entityJson = profile.toJson();
+    delete (entityJson as any).id;
+    return entityJson as Schema;
+  }
 }

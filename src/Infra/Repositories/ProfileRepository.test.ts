@@ -18,6 +18,7 @@ describe("[Repository] ProfileRepository", () => {
 
   beforeAll(async () => {
     await prisma.$connect();
+    await prisma.profile.deleteMany();
   });
 
   beforeEach(() => {
