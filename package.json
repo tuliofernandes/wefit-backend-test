@@ -10,7 +10,7 @@
     "test:coverage": "npm test -- --coverage --silent",
     "dev": "nodemon -L --config nodemon.json",
     "start": "node dist/index.js",
-    "build": "rimraf dist && tsc -p tsconfig-build.json"
+    "build": "rimraf dist && tsc -p tsconfig-build.json && tsc-alias"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
@@ -20,7 +20,8 @@
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
     "http-graceful-shutdown": "^3.1.13",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "tsc-alias": "^1.8.8"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
