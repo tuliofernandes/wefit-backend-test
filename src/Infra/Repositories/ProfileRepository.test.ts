@@ -43,9 +43,9 @@ describe("[Repository] ProfileRepository", () => {
     });
 
     it("Should create the profile in the database", async () => {
-      const profileId = await sut.create(profileFixtureEntity);
+      const created = await sut.create(profileFixtureEntity);
       const found = await prisma.profile.findUnique({
-        where: { id: profileId.toNumber() },
+        where: { id: created.getId().toNumber() },
       });
 
       expect(found?.email).toEqual(profileFixtureSchema.email);
@@ -83,4 +83,6 @@ describe("[Repository] ProfileRepository", () => {
       expect(found).toEqual(profileFixtureEntity);
     });
   });
+
+  // TODO: Complete the tests for findByCpf and findByCnpj
 });

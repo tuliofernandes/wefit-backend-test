@@ -7,12 +7,12 @@ import prismaClient from "@/Infra/Database/PrismaClient";
 import { ProfileAdapter } from "@/Infra/Repositories/Adapters/ProfileAdapter";
 
 export class ProfileRepository implements IProfileRepository {
-  async create(profile: Profile): Promise<ProfileId> {
+  async create(profile: Profile): Promise<Profile> {
     try {
       const created = await prismaClient.profile.create({
         data: profile.toJson(),
       });
-      return new ProfileId(created.id);
+      return ProfileAdapter.toEntity(created);
     } catch (error) {
       // Process the error internally as needed
       throw new InfraException("Error when creating profile"); // Return a generic error message to the client
