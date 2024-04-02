@@ -1,8 +1,6 @@
 import { Profile } from "@/Domain/Entities";
-import { Cnpj, Cpf } from "@/Domain/ValueObjects/Profile";
+import { ProfileId } from "@/Domain/ValueObjects/Profile/ProfileId";
 
 export interface IProfileRepository {
-  // findByCpf(cpf: Cpf): Promise<Profile | null>;
-  // findByCnpj(cnpj: Cnpj): Promise<Profile | null>;
-  create(profile: Profile): Promise<Profile>;
+  create(profile: Profile): Promise<ProfileId>;
 }
