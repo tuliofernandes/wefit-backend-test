@@ -8,7 +8,7 @@ import { profileFixtureEntity } from "../../../tests/fixtures/Entities/Profile";
 describe("[Usecase] CreateProfileUsecase", () => {
   const profileRepository = new ProfileRepository();
 
-  it("Should throw an error if user already exists", () => {
+  it("Should throw an error if user with the same email already exists", () => {
     jest
       .spyOn(profileRepository, "findByEmail")
       .mockResolvedValueOnce(profileFixtureEntity);
@@ -16,7 +16,7 @@ describe("[Usecase] CreateProfileUsecase", () => {
     const createPromise = sut.execute(profileFixtureEntity);
 
     expect(createPromise).rejects.toThrow(
-      new DomainException("Profile already exists")
+      new DomainException("Profile with the same email already exists")
     );
   });
 });
