@@ -1,8 +1,12 @@
 import request from "supertest";
 
-import { ExpressHttpAdapter } from "@/Presentation/Api/Adapters";
-import { profileFixtureSchema } from "../../../../tests/fixtures/Entities/Profile";
 import { CreateProfileUsecase } from "@/Domain/Usecases/CreateProfileUsecase";
+
+import { ExpressHttpAdapter } from "@/Presentation/Api/Adapters";
+import {
+  profileFixtureEntity,
+  profileFixtureSchema,
+} from "../../../../tests/fixtures/Entities/Profile";
 
 describe("[Controller] PostCreateProfileController", () => {
   let expressAdapter: ExpressHttpAdapter;
@@ -63,6 +67,23 @@ describe("[Controller] PostCreateProfileController", () => {
     expect(response.body).toEqual({
       status: 500,
       body: "Internal server error",
+    });
+  });
+
+  it("Should return 201 and the created profile if created successfully", async () => {
+    jest
+      .spyOn(CreateProfileUsecase.prototype, "execute")
+      .mockResolvedValueOnce(profileFixtureEntity);
+    const response = await request(testServer)
+      .post("/api/profile")
+      .send(profileFixtureSchema)
+      .set("Content-Type", "application/json")
+      .set("Accept", "application/json");
+
+    expect(response.status).toBe(201);
+    expect(response.body).toEqual({
+      status: 201,
+      body: profileFixtureSchema,
     });
   });
 });
