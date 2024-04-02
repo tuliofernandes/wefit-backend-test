@@ -14,6 +14,9 @@ Deixei comentários pontuais no código para sinalizar pontos de injeção de de
 
 ## Setup
 
+**Importante**: A resolução foi feita utilizando o Node.js na versão v20.11.1, e também foi necessário atualizar o `typescript` para a versão 5.4.3.
+Portanto, para garantir que tudo ocorra bem, garanta que seu Node.js esteja o mais próximo possível dessa versão.
+
 ### 1. Inicie o banco de dados localmente via docker-compose utilizando o seguinte comando:
 
     docker-compose up -d
