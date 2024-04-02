@@ -1,19 +1,60 @@
-## Backend - Wefit
+# Backend - Wefit
 
 Seja bem vindo ao teste de backend da Wefit.
 
-### Para iniciar o banco de dados é necessario ter o docker-compose instalado em sua máquina e rodar o seguinte comando:
+## Nota ao avaliador
 
-    docker-compose up -D
+Caro avaliador, a resolução do teste de backend foi desenvolvida utilizando as melhores práticas com as quais
+já trabalhei: Clean Archutecture, Domain Driven Design (DDD) e Test-Driven Development (TDD). Sei que isto pode,
+porventura, ser visto como overengineering quando se avalia pela perspectiva da problemática do desafio técnico
+(um único endpoint), porém estou convicto de que o uso de testes e uma de arquitetura robusta e desacoplada entregam
+qualidade e longevidade a sistemas do mundo real.
+
+Deixei comentários pontuais no código para sinalizar pontos de injeção de dependência, uso de patterns, etc.
+
+## Setup
+
+### 1. Inicie o banco de dados localmente via docker-compose utilizando o seguinte comando:
+
+    docker-compose up -d
 
 o docker-compose vai criar um container de um MySQL e você poderá acessar via localhost:3306 e a senha do usuário **root** é **senha_root_123**
 
-### Para iniciar o servidor express basta executar o seguinte comando:
+### 2. Instale as dependências do projeto
 
-    npm start
+    npm install
     ou
-    yarn start
+    yarn install
 
-Depois que concluir seu teste não de enviar o seu código junto a pasta data, nela está salvo o volume do MySQL criado pelo docker.
+### 3. Aplique o schema do ORM Prisma no banco de dados:
+
+    npm run prisma:pull
+
+### 4. Inicie o projeto em modo de desenvolvimento:
+
+    npm run dev
+
+### 4.1 Ou faça o build para rodar em modo produção (opcional):
+
+    npm run build
+    npm start
+
+### 5. Rode as suite de testes unitários e de integração (opcional):
+
+Rode as suite de testes unitários e de integração para ver a cobertura do projeto:
+
+    npm run test:coverage
+
+NOTA: Para que todos os testes passem é fundamental ter realizado o passo 3, pois sem o banco
+de dados pronto os testes de integração não irão passar!
+
+### 6. Acesse a documentação da API
+
+Para saber de todos os campos necessários para a requisição POST, bem como as possíveis respostas, acesse a documentação da API via seu browser:
+
+    http://localhost:4568/api/docs
+
+NOTA: A documentação foi gerada utilizando o TSOA, uma biblioteca que facilita a geração de documentações
+OpenAPI/Swagger pelo uso de decorators diretamente dentro do código de produção. Fica a dica ;)
 
 Boa sorte =)
