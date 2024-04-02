@@ -52,6 +52,8 @@ export class Profile {
   ) {
     if (this.type.toString() === ProfileType.PJ && !this.cnpj)
       throw new DomainException("CNPJ is required for PJ profiles");
+    if (this.type.toString() === ProfileType.PF && this.cnpj)
+      throw new DomainException("CNPJ is not required for PF profiles");
   }
 
   public toJson(): ProfileSchema {
