@@ -15,5 +15,4 @@ module.exports = {
     "\\.ts$": "ts-jest",
   },
   clearMocks: true,
-  setupFilesAfterEnv: ["<rootDir>/tests/prismaSingleton.ts"],
 };

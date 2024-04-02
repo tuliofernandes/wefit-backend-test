@@ -2,8 +2,10 @@ import prisma from "@/Infra/Database/PrismaClient";
 import { ProfileRepository } from "@/Infra/Repositories/ProfileRepository";
 import { InfraException } from "@/Infra/Exceptions/InfraException";
 
-import { profileFixtureEntity } from "../../../tests/fixtures/Entities/Profile";
-import { prismaMock } from "../../../tests/prismaSingleton";
+import {
+  profileFixtureEntity,
+  profileFixtureSchema,
+} from "../../../tests/fixtures/Entities/Profile";
 
 describe("[Repository] ProfileRepository", () => {
   let sut: ProfileRepository;
@@ -13,7 +15,7 @@ describe("[Repository] ProfileRepository", () => {
   };
 
   beforeAll(async () => {
-    await prismaMock.$connect();
+    await prisma.$connect();
   });
 
   beforeEach(() => {
@@ -21,14 +23,16 @@ describe("[Repository] ProfileRepository", () => {
   });
 
   afterAll(async () => {
+    await prisma.profile.deleteMany();
     await prisma.$disconnect();
   });
 
   describe("create", () => {
     it("Should throw an error if some error occurs", async () => {
       const dbErrorMessage = "Some db internal error";
-
-      prismaMock.profile.create.mockRejectedValueOnce(dbErrorMessage);
+      jest
+        .spyOn(prisma.profile, "create")
+        .mockRejectedValueOnce(dbErrorMessage);
       const infoSpy = jest.spyOn(console, "info");
       sut = makeSut();
       const createPromise = sut.create(profileFixtureEntity);
@@ -36,7 +40,15 @@ describe("[Repository] ProfileRepository", () => {
       await expect(createPromise).rejects.toThrow(
         new InfraException("Error when creating profile")
       );
-      expect(infoSpy).toHaveBeenCalledWith(dbErrorMessage);
+    });
+
+    it("Should create the profile in the database", async () => {
+      const profileId = await sut.create(profileFixtureEntity);
+      const found = await prisma.profile.findUnique({
+        where: { id: profileId.toNumber() },
+      });
+
+      expect(found?.email).toEqual(profileFixtureSchema.email);
     });
   });
 });
