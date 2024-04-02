@@ -6,8 +6,10 @@ import {
   profileFixtureEntity,
   profileFixtureSchema,
 } from "../../../tests/fixtures/Entities/Profile";
+import { Email } from "@/Domain/ValueObjects/Profile";
 
 describe("[Repository] ProfileRepository", () => {
+  const dbErrorMessage = "Some db internal error";
   let sut: ProfileRepository;
 
   const makeSut = (): ProfileRepository => {
@@ -29,11 +31,9 @@ describe("[Repository] ProfileRepository", () => {
 
   describe("create", () => {
     it("Should throw an error if some error occurs", async () => {
-      const dbErrorMessage = "Some db internal error";
       jest
         .spyOn(prisma.profile, "create")
         .mockRejectedValueOnce(dbErrorMessage);
-      const infoSpy = jest.spyOn(console, "info");
       sut = makeSut();
       const createPromise = sut.create(profileFixtureEntity);
 
@@ -49,6 +49,29 @@ describe("[Repository] ProfileRepository", () => {
       });
 
       expect(found?.email).toEqual(profileFixtureSchema.email);
+    });
+  });
+
+  describe("findByEmail", () => {
+    it("Should throw an error if some error occurs", async () => {
+      jest
+        .spyOn(prisma.profile, "findUnique")
+        .mockRejectedValueOnce(dbErrorMessage);
+      sut = makeSut();
+      const createPromise = sut.findByEmail(new Email("validemail@gmail.com"));
+
+      await expect(createPromise).rejects.toThrow(
+        new InfraException("Error when checking profile")
+      );
+    });
+
+    it("Should return null if the profile is not found", async () => {
+      jest.spyOn(prisma.profile, "findUnique").mockResolvedValueOnce(null);
+      const found = await sut.findByEmail(
+        new Email("nonexistentemail@gmail.com")
+      );
+
+      expect(found).toBeNull();
     });
   });
 });
